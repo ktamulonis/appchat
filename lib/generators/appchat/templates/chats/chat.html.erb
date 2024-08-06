@@ -1,0 +1,5 @@
+<%= link_to chat, data: { turbo_frame: :chat } do %>
+<div class="w-full text-gray-100 hover:text-green-500">
+  <%= chat&.messages&.first&.content || "New AI chat conversation" %>
+</div>
+<% end %>

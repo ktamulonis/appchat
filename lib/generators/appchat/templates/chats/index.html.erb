@@ -1,0 +1,22 @@
+<style>
+  body {
+    background-color: black;
+  }
+</style>
+<div class="flex w-full">
+<%= turbo_stream_from :chats %>
+<div class="max-w-sm w-full h-full flex flex-col gap-4 p-2 w-full flex-shrink-0 bg-[#2e2e2e] rounded-lg" id="chats">
+  <%= link_to  chats_path, data: { turbo_method: :post, turbo_frame: :chat }, class: "flex gap-2 justify-center items-center bg-gray-500 text-gray-100 rounded-lg p-2 text-center mr-auto" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    </svg>
+    <span> Create Chat </span>
+  <% end %>
+  <% @chats.each do |chat| %>
+    <%= render "chat", chat: chat %>
+  <% end %>
+</div>
+<div class="w-full ml-4">
+  <%= turbo_frame_tag :chat, src: ( chat_path(@chats.first) if @chats.any? )  %>
+</div>
+</div>

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag(:messages) do %> 
+  <div data-controller="chat-message" class="w-full gap-4 flex flex-col h-[70vh] overflow-y-scroll" id="chat-messages">
+    <%= render partial: "message", collection: @messages %>
+  </div>
+<% end %>

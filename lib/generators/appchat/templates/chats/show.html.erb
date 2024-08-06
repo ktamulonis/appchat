@@ -1,0 +1,7 @@
+<%= turbo_frame_tag :chat do %>
+<div class="flex flex-col w-full h-full">
+  <%= turbo_stream_from(dom_id(@chat, :messages)) %>
+  <%= turbo_frame_tag(:messages, src: messages_path(chat_id: @chat.id)) %>
+  <%= turbo_frame_tag(:new_message, src: new_message_path(chat_id: @chat.id))  %>
+</div>
+<% end %>
