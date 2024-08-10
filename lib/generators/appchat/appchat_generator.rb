@@ -24,7 +24,7 @@ class AppchatGenerator < Rails::Generators::Base
   end
 
   def generate_scaffolds
-    generate "model", "Chat"
+    generate "model", "Chat context:text"
     route "resources :chats"
     generate "scaffold", "Message chat:references content:text role:integer"
   end
@@ -43,6 +43,10 @@ class AppchatGenerator < Rails::Generators::Base
   def copy_models
     copy_file "models/message.rb", "app/models/message.rb", force: true
     copy_file "models/chat.rb", "app/models/chat.rb", force: true
+  end
+
+  def serialize_context
+    inject_into_class 'app/models/chat.rb', 'Chat', "serialize :context, coder:JSON, type: Array\n"
   end
 
   def set_associations
@@ -74,6 +78,10 @@ class AppchatGenerator < Rails::Generators::Base
        |_|    |_|                             
   
     ART
+  end
+
+  def get_started
+    puts "Congratulations on setting up appchat! \n run bin/dev to spin up your app, and visit localhost:3000/chats to start chatting"
   end
 
   private

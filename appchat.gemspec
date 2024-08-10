@@ -1,10 +1,11 @@
 Gem::Specification.new do |s|
   s.name        = "appchat"
-  s.version     = "0.0.2"
+  s.version     = "0.0.3"
   s.summary     = "Appchat makes it easy to add a chat to your app"
   s.description = "The best and easiest framework for adding chats"
   s.authors     = ["hackliteracy"]
   s.email       = "hackliteracy@gmail.com"
+  s.metadata["source_code_uri"] = 'https://github.com/ktamulonis/appchat'
   s.files       = Dir["lib/**/*.rb"] + Dir["lib/generators/appchat/**/*"]
   s.homepage    = "https://rubygems.org/gems/appchat"
   s.license     = "MIT"

@@ -22,6 +22,7 @@ class GetAiResponseJob < ApplicationJob
       {
         model: 'llama3.1',
         prompt: user_prompt,
+        context: chat.context,
         stream: true,
       }
      ) do |event, raw|
@@ -32,5 +33,6 @@ class GetAiResponseJob < ApplicationJob
           message.update(content: new_content)
         end
       end
+    chat.update(context: response.last["context"])
   end
 end
