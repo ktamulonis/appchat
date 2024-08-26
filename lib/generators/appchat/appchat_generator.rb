@@ -37,6 +37,8 @@ class AppchatGenerator < Rails::Generators::Base
     copy_file "messages/index.html.erb", "app/views/messages/index.html.erb", force: true
     copy_file "messages/new.html.erb", "app/views/messages/new.html.erb", force: true
     copy_file "messages/message.html.erb", "app/views/messages/_message.html.erb", force: true
+    copy_file "messages/_typing_bubbles.html.erb", "app/views/messages/_typing_bubbles.html.erb", force: true
+    copy_file "assets/appchat.tailwind.css", "app/assets/stylesheets/appchat.tailwind.css", force: true
     copy_file "javascript/chat_message_controller.js", "app/javascript/controllers/chat_message_controller.js"
   end
 
