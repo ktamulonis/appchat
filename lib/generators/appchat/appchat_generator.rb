@@ -23,14 +23,22 @@ class AppchatGenerator < Rails::Generators::Base
     run 'rails tailwindcss:install'
   end
 
-  def generate_scaffolds
-    generate "model", "Chat context:text"
+  def set_routes
     route "resources :chats"
-    generate "scaffold", "Message chat:references content:text role:integer"
+    route "resources :messages"
+  end
+
+  def generate_models
+    generate "model", "Chat context:text"
+    generate "model", "Message chat:references content:text role:integer"
+  end
+
+  def create_controllers
+    copy_file "chats_controller.rb", "app/controllers/chats_controller.rb"
+    copy_file "messages_controller.rb", "app/controllers/messages_controller.rb", force: true
   end
 
   def create_views
-    copy_file "chats_controller.rb", "app/controllers/chats_controller.rb"
     copy_file "chats/chat.html.erb", "app/views/chats/_chat.html.erb", force: true
     copy_file "chats/index.html.erb", "app/views/chats/index.html.erb", force: true
     copy_file "chats/show.html.erb", "app/views/chats/show.html.erb", force: true
@@ -38,8 +46,15 @@ class AppchatGenerator < Rails::Generators::Base
     copy_file "messages/new.html.erb", "app/views/messages/new.html.erb", force: true
     copy_file "messages/message.html.erb", "app/views/messages/_message.html.erb", force: true
     copy_file "messages/_typing_bubbles.html.erb", "app/views/messages/_typing_bubbles.html.erb", force: true
+  end
+
+  def create_stylesheets
     copy_file "assets/appchat.tailwind.css", "app/assets/stylesheets/appchat.tailwind.css", force: true
+  end
+
+  def create_stimulus_controllers
     copy_file "javascript/chat_message_controller.js", "app/javascript/controllers/chat_message_controller.js"
+    copy_file "javascript/speech_to_text_controller.js", "app/javascript/controllers/speech_to_text_controller.js"
   end
 
   def copy_models
@@ -63,8 +78,14 @@ class AppchatGenerator < Rails::Generators::Base
     copy_file "get_ai_response_job.rb", "app/jobs/get_ai_response_job.rb"
   end
 
-  def create_messages_controller
-    copy_file "messages_controller.rb", "app/controllers/messages_controller.rb", force: true
+  def swap_class_in_layout
+    layout_file = "app/views/layouts/application.html.erb"
+
+    if File.exist?(layout_file)
+      gsub_file layout_file, /\bmt-28\b/, "mt-10"
+    else
+      say "Layout file not found. No changes were made.", :red
+    end
   end
 
   def show_art
