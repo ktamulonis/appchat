@@ -59,4 +59,18 @@
     }
   }
 
+  #microphone-button.recording {
+    animation: flash 1s infinite;
+  }
+
+  @keyframes flash {
+    0%, 100% {
+      opacity: 80;
+      background-color: #EE4B2B; /* Ensure the color remains during the flash */
+    }
+    50% {
+      opacity: 0.5;
+      background-color: #EE4B2B; /* Ensure the color remains during the flash */
+    }
+  }
 }

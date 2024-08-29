@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
     @chat = Chat.find(params[:id])
   end
   def index
-    @chats = Chat.all
+    @chats = Chat.all.reverse
   end
   def create
     @chat = Chat.create
