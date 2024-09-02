@@ -1,5 +1,7 @@
 <div data-chat-message-target="message" id="<%= dom_id(message) %>" class="bg-gray-200 text-gray-900 shadow-lg p-4 rounded-lg">
-  <% if message.content? %>
+  <% if message.status? && !message.content? %>
+    <%= message.status %>
+  <% elsif message.content? %>
     <%=  message.content %>
   <% else %>
     <%= render 'messages/typing_bubbles' %>
