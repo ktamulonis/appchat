@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "appchat"
-  s.version     = "0.0.6"
+  s.version     = "0.0.7"
   s.summary     = "Appchat makes it easy to add an AI chat to your app"
   s.description = "The best and easiest framework for adding AI chats"
   s.authors     = ["hackliteracy"]

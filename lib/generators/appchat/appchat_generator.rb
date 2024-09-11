@@ -12,7 +12,6 @@ class AppchatGenerator < Rails::Generators::Base
     gems = %w(
       ollama-ai
       tailwindcss-rails
-      watir
     )
 
     gems.each do |gem|
@@ -40,6 +39,7 @@ class AppchatGenerator < Rails::Generators::Base
     generate "model", "Message chat:references content:text role:integer status:string"
     generate "model", "AppchatFunction name:string description:text class_name:string"
     generate "model", "FunctionParameter appchat_function:references name:string example_value:string"
+    generate "model", "FunctionLog message:references name:string prompt:text results:text"
   end
 
   def create_controllers
@@ -55,6 +55,7 @@ class AppchatGenerator < Rails::Generators::Base
     copy_file "messages/new.html.erb", "app/views/messages/new.html.erb", force: true
     copy_file "messages/message.html.erb", "app/views/messages/_message.html.erb", force: true
     copy_file "messages/_typing_bubbles.html.erb", "app/views/messages/_typing_bubbles.html.erb", force: true
+    copy_file "messages/_function_logs.html.erb", "app/views/messages/_function_logs.html.erb", force: true
   end
 
   def create_stylesheets
@@ -64,6 +65,7 @@ class AppchatGenerator < Rails::Generators::Base
   def create_stimulus_controllers
     copy_file "javascript/chat_message_controller.js", "app/javascript/controllers/chat_message_controller.js"
     copy_file "javascript/speech_to_text_controller.js", "app/javascript/controllers/speech_to_text_controller.js"
+    copy_file "javascript/toggle_controller.js", "app/javascript/controllers/toggle_controller.js"
   end
 
   def copy_models
