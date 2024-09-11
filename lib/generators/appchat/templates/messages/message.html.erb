@@ -1,4 +1,6 @@
 <div data-chat-message-target="message" id="<%= dom_id(message) %>" class="bg-gray-200 text-gray-900 shadow-lg p-4 rounded-lg">
+  <%= render partial: 'messages/function_logs', locals: { message: message } if message.function_logs.present? %>
+
   <% if message.status? && !message.content? %>
     <%= message.status %>
   <% elsif message.content? %>

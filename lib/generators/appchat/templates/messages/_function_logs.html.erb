@@ -1,0 +1,12 @@
+<div data-controller="toggle">
+  <%= message.function_logs.count %> Function calls informed this message.
+  <i data-toggle-target="icon" data-action="click->toggle#toggle" class="icon-class">Expand</i> 
+
+  <div data-toggle-target="content" class="hidden bg-white">
+    <% message.function_logs.each do |log| %>
+      <p> Name: <%= log.name %> </p>
+      <p> Parameters: <%= log.prompt %> </p>
+      <p> Response: <%= log.results %> </p>
+    <% end %>
+  </div>
+</div>

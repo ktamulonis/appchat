@@ -45,16 +45,17 @@ class GetAiResponseJob < ApplicationJob
   def appchat_functions
     appchat_function_service = AppchatFunctionService.new(chat.id, user_prompt).run
     if appchat_function_service["match"] == "true" && appchat_function_service["appchat_function"].in?(AppchatFunction.pluck(:class_name))
-      puts "Function Match Found! --> #{appchat_function_service}"
+      puts "Function Match Found! --> #{ appchat_function_service }"
+
+      function_log = message.function_logs.create(name: appchat_function_service["appchat_function"], prompt: appchat_function_service["parameters"])
       function_class = appchat_function_service["appchat_function"].constantize
       function_response = function_class.new(appchat_function_service["parameters"]).run do |status|
         message.update(status: status)
       end
 
       return if function_response.nil?
-      @informed_prompt = "#{ user_prompt }, base your response on this data:
-        #{ appchat_function_service["name"] } responded with: #{ function_response },
-        :current_time => #{Date.current}"
+      function_log.update(results: function_response)
+      @informed_prompt = "The user prompted: #{ user_prompt }, to help you answer the user, an appchat function called #{ function_class } provided this data #{ function_response }"
     end
   end
 end
