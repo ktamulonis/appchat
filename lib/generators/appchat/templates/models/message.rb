@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
   include ActionView::RecordIdentifier
   belongs_to :chat
-  has_many :function_logs
+  has_many :function_logs, dependent: :destroy
 
   after_create_commit :broadcast_message
   after_update_commit :broadcast_update_message
