@@ -18,7 +18,7 @@ class AppchatFunctionService
     )
     response = client.generate(
       {
-        model: 'llama3.1',
+        model: 'llama3.2',
         prompt: prompt,
         context: chat.context,
         "format": "json"
